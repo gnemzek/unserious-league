@@ -39,6 +39,11 @@ h3.text-primary {
     border-color: #5dc3ec !important;
 }
 
+.small,
+small {
+    font-size: .7em;
+}
+
 .dashboard-header {
     border-radius: 16px;
     padding: 20px 30px;
@@ -95,7 +100,7 @@ img.logo.img-fluid {
 }
 
 .game-card-inner-wrapper div {
-    margin-bottom: 5px;
+    margin: 5px 0;
 }
 
 .game-card-inner-wrapper:hover {
@@ -144,6 +149,7 @@ img.logo.img-fluid {
     color: var(--text-main);
     transition: var(--transition);
     align-self: center;
+    margin-top: 10px;
 }
 
 

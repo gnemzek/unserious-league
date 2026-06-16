@@ -106,7 +106,11 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
     const type = game.type;
     const winner = game.winner;
 
+    
     const gameCard = document.createElement('div');
+    const cardClass = isPast ? 'game-card past' : 'game-card';
+
+    const hasScores = game.awayScore !== undefined && game.homeScore !== undefined;
 
     let homeWin = false;
     let awayWin = false;
@@ -119,24 +123,25 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
         awayWin = true;
     }
 
-    // Add the "past" CSS styling class if the game time has slipped by
-    const cardClass = isPast ? 'game-card past' : 'game-card';
 
     return `
         <div class="${cardClass} my-2">
             <div class="game-card-inner-wrapper row align-items-center game-${type}">
                 <div class="team visitor col-md-4">
-                ${awayWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}
                     <span class="team-name"> <span class="team-logo">${awayLogo}</span> ${awayName} <span class="team-logo">${awayLogo}</span></span> 
+                    ${awayWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}
                       <small class="text-muted">(${awayRecord})</small>
+                      ${hasScores  ? `<span class="score">${game.awayScore}</span>` : ''}
                 </div>
                 <div class="vs-container col-md-2 text-center">
                     <div class="vs">@</div>
                 </div>
                 <div class="team home col-md-4">
-                ${homeWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}
+                
                     <span class="team-name"> <span class="team-logo">${homeLogo}</span> ${homeName} <span class="team-logo">${homeLogo}</span></span>
-                      <small class="text-muted">(${homeRecord})</small>
+                    ${homeWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}  
+                    <small class="text-muted">(${homeRecord})</small>
+                      ${hasScores  ? `<span class="score">${game.homeScore}</span>` : ''}
                 </div>
                 <div class="game-info col-md-2">${time}</div>
             </div>
