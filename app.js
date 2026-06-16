@@ -71,8 +71,8 @@ function displaySchedule() {
 
         const daySection = document.createElement('div');
 
-        // Add the "opacity-50" Bootstrap class if the whole day has passed
-        daySection.className = isMutedDay ? 'day-section mb-4 opacity-50' : 'day-section mb-4';
+        // Add the "opacity-75" Bootstrap class if the whole day has passed
+        daySection.className = isMutedDay ? 'day-section mb-4 opacity-75' : 'day-section mb-4';
 
         // Header style changes based on whether it is past or upcoming
         const headerClass = isMutedDay ? 'text-secondary fs-5 border-bottom pb-1' : 'text-primary border-bottom pb-2';
