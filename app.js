@@ -76,7 +76,7 @@ function displaySchedule() {
 
         // Header style changes based on whether it is past or upcoming
         const headerClass = isMutedDay ? 'text-secondary fs-5 border-bottom pb-1' : 'text-primary border-bottom pb-2';
-        daySection.innerHTML = `<h3 class="day-header ${headerClass}">${formattedDate} ${isMutedDay ? '(Finished)' : ''}</h3>`;
+        daySection.innerHTML = `<h3 class="day-header ${headerClass}">${formattedDate}</h3>`;
 
         // Render individual cards inside this day
         games.forEach(game => {
