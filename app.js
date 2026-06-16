@@ -104,8 +104,20 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
     const date = game.date;
     const time = game.time;
     const type = game.type;
+    const winner = game.winner;
 
     const gameCard = document.createElement('div');
+
+    let homeWin = false;
+    let awayWin = false;
+
+    if (homeName === winner) {
+        homeWin = true;
+    }
+
+    if (awayName === winner) {
+        awayWin = true;
+    }
 
     // Add the "past" CSS styling class if the game time has slipped by
     const cardClass = isPast ? 'game-card past' : 'game-card';
@@ -114,6 +126,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
         <div class="${cardClass} my-2">
             <div class="game-card-inner-wrapper row align-items-center game-${type}">
                 <div class="team visitor col-md-4">
+                ${awayWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}
                     <span class="team-name"> <span class="team-logo">${awayLogo}</span> ${awayName} <span class="team-logo">${awayLogo}</span></span> 
                       <small class="text-muted">(${awayRecord})</small>
                 </div>
@@ -121,6 +134,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
                     <div class="vs">@</div>
                 </div>
                 <div class="team home col-md-4">
+                ${homeWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}
                     <span class="team-name"> <span class="team-logo">${homeLogo}</span> ${homeName} <span class="team-logo">${homeLogo}</span></span>
                       <small class="text-muted">(${homeRecord})</small>
                 </div>
