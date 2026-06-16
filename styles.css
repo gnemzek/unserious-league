@@ -86,7 +86,7 @@ img.logo.img-fluid {
 
 /* Individual Score Matchup Card Treatment */
 .game-card-inner-wrapper {
-    background: #708090;
+    background: #9ca7b2;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
     padding: 24px;
@@ -134,7 +134,7 @@ img.logo.img-fluid {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(23, 24, 28, 0.1);
     border: 1px solid var(--card-border);
     padding: 6px 14px;
     border-radius: 30px;
@@ -165,7 +165,7 @@ img.logo.img-fluid {
 }
 
 .card {
-    background: #708090;
+    background: #9ca7b2;
     color: black;
 }
 
