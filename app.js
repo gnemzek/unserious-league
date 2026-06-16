@@ -110,6 +110,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
     const gameCard = document.createElement('div');
     const cardClass = isPast ? 'game-card past' : 'game-card';
 
+    // checking to see if there are scores - the first few games don't have scores. If there are no scores, they won't show
     const hasScores = game.awayScore !== undefined && game.homeScore !== undefined;
 
     let homeWin = false;
@@ -118,7 +119,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
     if (homeName === winner) {
         homeWin = true;
     }
-
+    
     if (awayName === winner) {
         awayWin = true;
     }
