@@ -135,7 +135,7 @@ const teamsData = [
     {
         name: "Hell's Ankles",
         logo: "🔥",
-        wonGames: 0,
+        wonGames: 1,
         lostGames: 1
     },
     {
