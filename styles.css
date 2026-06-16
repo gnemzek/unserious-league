@@ -99,7 +99,7 @@ img.logo.img-fluid {
 }
 
 .game-card-inner-wrapper.game-playoffs {
-    background-image: url(playoffs-bg--text-only.png);
+    background-image: url(playoffs-bg-muted-text-only.png);
     background-size: cover;
     background-position: center;
 }
