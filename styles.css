@@ -25,11 +25,13 @@ h1 {
     color: #5dc3ec;
     text-align: center;
     margin-top: 10px;
+    text-transform: lowercase;
 }
 
 h2 {
     color: white;
     text-align: center;
+    text-transform: lowercase;
 }
 
 h3,
@@ -37,6 +39,7 @@ h3.text-primary {
     color: #5dc3ec !important;
     text-align: center;
     border-color: #5dc3ec !important;
+    text-transform: lowercase;
 }
 
 .small,
@@ -71,7 +74,7 @@ img.logo.img-fluid {
 
 .nav-link {
     color: white;
-    text-transform: uppercase;
+    text-transform: lowercase;
 }
 
 /* Master Layout Framework */
