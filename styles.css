@@ -168,6 +168,10 @@ img.logo.img-fluid {
     justify-content: center;
 }
 
+table {
+    border-radius: 16px;
+    overflow: hidden;
+}
 
 .table-dark {
     --bs-table-bg: #591a7e;
