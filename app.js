@@ -55,7 +55,7 @@ function displaySchedule() {
     if (upcomingDates.length > 0 && pastDates.length > 0) {
         SCHEDULE_CONTAINER.innerHTML += `
             <div class="text-center my-2">
-                <span class="badge bg-dark px-3 py-2">Past Games</span>
+                <h2 class="past-games">Past Games</h2>
             </div>
         `;
     }
@@ -119,7 +119,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
     if (homeName === winner) {
         homeWin = true;
     }
-    
+
     if (awayName === winner) {
         awayWin = true;
     }
