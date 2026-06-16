@@ -91,6 +91,12 @@ img.logo.img-fluid {
     box-shadow: 0 8px 24px rgba(255, 92, 0, 0.08);
 }
 
+.game-card-inner-wrapper.game-playoffs {
+    background-image: url(playoffs-bg-muted.png);
+    background-size: cover;
+    background-position: center;
+}
+
 .team {
     font-size: 1.1rem;
     font-weight: 600;

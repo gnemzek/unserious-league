@@ -103,6 +103,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
     const awayName = game.awayTeam;
     const date = game.date;
     const time = game.time;
+    const type = game.type;
 
     const gameCard = document.createElement('div');
 
@@ -111,7 +112,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
 
     return `
         <div class="${cardClass} my-2">
-            <div class="game-card-inner-wrapper row align-items-center">
+            <div class="game-card-inner-wrapper row align-items-center game-${type}">
                 <div class="team visitor col-md-4">
                     <span class="team-name"> <span class="team-logo">${awayLogo}</span> ${awayName} <span class="team-logo">${awayLogo}</span></span> 
                       <small class="text-muted">(${awayRecord})</small>
