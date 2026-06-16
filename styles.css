@@ -24,6 +24,7 @@ body {
 h1 {
     color: #5dc3ec;
     text-align: center;
+    margin-top: 10px;
 }
 
 h2 {
@@ -53,9 +54,14 @@ img.logo.img-fluid {
     display: block;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
     background: #5dc3ec;
     background: linear-gradient(90deg, #5dc3ec, #591a7e);
+}
+
+.nav-pills {
+    align-items: center;
 }
 
 .nav-link {
@@ -156,4 +162,22 @@ img.logo.img-fluid {
 
 .table-dark {
     --bs-table-bg: #591a7e;
+}
+
+.card {
+    background: #708090;
+    color: black;
+}
+
+.agreement-content {
+    text-align: center;
+}
+
+.agreement-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.agreement-content p {
+    margin-bottom: 1.3rem;
 }

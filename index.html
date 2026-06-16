@@ -21,55 +21,86 @@
 
     <header class="dashboard-header">
         <div class="header-content">
-            <h1>Unserious Basketball League</h1>
+            <h1>Unserious</h1>
             <img src="logo.png" class="logo img-fluid">
+            <h1>Basketball League</h1>
         </div>
     </header>
 
     <div class="dashboard-grid">
         <ul class="nav nav-pills nav-justified" id="leagueTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="schedule-tab" data-bs-toggle="tab" data-bs-target="#schedule-content" type="button" role="tab">
-                Schedule
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="standings-tab" data-bs-toggle="tab" data-bs-target="#standings-content" type="button" role="tab">
-                Standings
-            </button>
-        </li>
-    </ul>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="schedule-tab" data-bs-toggle="tab"
+                    data-bs-target="#schedule-content" type="button" role="tab">
+                    Schedule
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="standings-tab" data-bs-toggle="tab" data-bs-target="#standings-content"
+                    type="button" role="tab">
+                    Standings
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="community-tab" data-bs-toggle="tab" data-bs-target="#community-content"
+                    type="button" role="tab">
+                    Community Agreement
+                </button>
+            </li>
+        </ul>
 
         <div class="tab-content pt-3" id="leagueTabsContent">
-        <!-- Schedule Tab Pane -->
-        <div class="tab-pane fade show active" id="schedule-content" role="tabpanel">
-            <h2>Schedule</h2>
-            <div id="schedule-container"></div>
-        </div>
-
-        <div class="tab-pane fade" id="standings-content" role="tabpanel">
-            <h2>Standings</h2>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col" style="width: 80px;">Rank</th>
-                            <th scope="col">Team</th>
-                            <th scope="col" class="text-center">W</th>
-                            <th scope="col" class="text-center">L</th>
-                        </tr>
-                    </thead>
-                    <tbody id="standings-tbody">
-                      
-                    </tbody>
-                </table>
+            <!-- Schedule Tab Pane -->
+            <div class="tab-pane fade show active" id="schedule-content" role="tabpanel">
+                <h2>Schedule</h2>
+                <div id="schedule-container"></div>
             </div>
+
+            <div class="tab-pane fade" id="standings-content" role="tabpanel">
+                <h2>Standings</h2>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col" style="width: 80px;">Rank</th>
+                                <th scope="col">Team</th>
+                                <th scope="col" class="text-center">W</th>
+                                <th scope="col" class="text-center">L</th>
+                            </tr>
+                        </thead>
+                        <tbody id="standings-tbody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="community-content" role="tabpanel">
+                <h2>Community Agreement</h2>
+                <div class="card">
+                    <div class="card-body agreement-content">
+                        <p><span class="agreement-title">Be Curious About the Experience of Others</span><br>Minority
+                            genders have a different experience on the court - be constantly mindful. Ask questions that
+                            help you understand where people are coming from. </p>
+
+                        <p><span class="agreement-title">Fair Play</span><br>Prioritize care over competitiveness. If
+                            anyone falls on the court, we pause until they're up & moving. Match the pace of who you're
+                            playing. Do everything you can to make the game accessible & fun for everyone. #1 priority
+                            is to take care of yourself on the court. </p>
+
+                        <p><span class="agreement-title">Proactively Communicate</span><br>Speak your truth clearly &
+                            directly. Ask questions for clarity & understanding. </p>
+
+                        <p><span class="agreement-title">Take Space, Make Space</span><br>Be assertive & fully yourself.
+                            Call it if someone fouls you. Notice & elevate quieter voices.</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-    </div>
-
-    <script src="data.js"></script>
-    <script src="app.js"></script>
+        <script src="data.js"></script>
+        <script src="app.js"></script>
 </body>
 
 </html>
