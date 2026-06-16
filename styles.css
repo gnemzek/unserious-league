@@ -83,6 +83,8 @@ img.logo.img-fluid {
     grid-template-columns: 1fr;
     gap: 30px;
     align-items: start;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 /* Separate Matchup Cards Feed Wrapper */
