@@ -116,6 +116,8 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
     let homeWin = false;
     let awayWin = false;
 
+    let playoffs = false
+
     if (homeName === winner) {
         homeWin = true;
     }
@@ -124,10 +126,15 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
         awayWin = true;
     }
 
+    if (game.type === 'playoffs') {
+        playoffs = true;
+    }
+
 
     return `
         <div class="${cardClass} my-2">
             <div class="game-card-inner-wrapper row align-items-center game-${type}">
+             ${playoffs  ? `<span class="playoffs badge text-bg-light">Playoffs!</span>` : ''}
                 <div class="team visitor col-md-4">
                     <span class="team-name"> <span class="team-logo">${awayLogo}</span> ${awayName} <span class="team-logo">${awayLogo}</span></span> 
                     ${awayWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}
