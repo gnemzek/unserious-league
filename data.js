@@ -39,7 +39,9 @@ const data = [
         homeTeam: "Hell's Ankles",
         awayTeam: "Swamp Rats",
         type: "regular",
-        winner: "",
+        winner: "Swamp Rats",
+        homeScore: 49,
+        awayScore: 50
     },
     {
         date: "2026-06-18",
