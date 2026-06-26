@@ -143,25 +143,25 @@ const teamsData = [
     {
         name: "Hell's Ankles",
         logo: "🔥",
-        wonGames: 1,
+        wonGames: 2,
         lostGames: 2
     },
     {
         name: "ChaHOOPas",
         logo: "🌮",
-        wonGames: 3,
+        wonGames: 4,
         lostGames: 0
     },
     {
         name: "Pop Stars",
         logo: "⭐",
         wonGames: 0,
-        lostGames: 3
+        lostGames: 4
     },
     {
         name: "Swamp Rats",
         logo: "🐀",
-        wonGames: 2,
+        wonGames: 3,
         lostGames: 1
     }
 ]
