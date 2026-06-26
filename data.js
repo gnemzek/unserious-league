@@ -59,7 +59,9 @@ const data = [
         homeTeam: "ChaHOOPas",
         awayTeam: "Hell's Ankles",
         type: "regular",
-        winner: "",
+        winner: "ChaHOOPas",
+        homeScore: 51,
+        awayScore: 42
     },
     {
         date: "2026-06-25",
@@ -67,7 +69,9 @@ const data = [
         homeTeam: "Swamp Rats",
         awayTeam: "Pop Stars",
         type: "regular",
-        winner: "",
+        winner: "Swamp Rats",
+        homeScore: 36,
+        awayScore: 33
     },
     {
         date: "2026-07-09",
