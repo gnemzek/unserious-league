@@ -94,7 +94,7 @@ const data = [
         awayScore: 40
     },
     {
-        date: "2026-07-16",
+        date: "2026-07-23",
         time: "6:30 PM",
         homeTeam: "Swamp Rats",
         awayTeam: "Hell's Ankles",
@@ -102,7 +102,7 @@ const data = [
         winner: "",
     },
     {
-        date: "2026-07-16",
+        date: "2026-07-23",
         time: "7:30 PM",
         homeTeam: "Pop Stars",
         awayTeam: "ChaHOOPas",
@@ -110,7 +110,7 @@ const data = [
         winner: "",
     },
     {
-        date: "2026-07-23",
+        date: "2026-07-30",
         time: "6:30 PM",
         homeTeam: "TBD",
         awayTeam: "TBD",
@@ -118,7 +118,7 @@ const data = [
         winner: "",
     },
     {
-        date: "2026-07-23",
+        date: "2026-07-30",
         time: "7:30 PM",
         homeTeam: "TBD",
         awayTeam: "TBD",
@@ -126,7 +126,7 @@ const data = [
         winner: "",
     },
        {
-        date: "2026-07-30",
+        date: "2026-08-06",
         time: "6:30 PM",
         homeTeam: "TBD",
         awayTeam: "TBD",
@@ -134,7 +134,7 @@ const data = [
         winner: "",
     },
     {
-        date: "2026-07-30",
+        date: "2026-08-06",
         time: "7:30 PM",
         homeTeam: "TBD",
         awayTeam: "TBD",
