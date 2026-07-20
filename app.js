@@ -70,28 +70,29 @@ function displaySchedule() {
         const formattedDate = new Date(dateString).toLocaleDateString('en-US', dateOptions);
 
         const daySection = document.createElement('div');
-
-        // Add the "opacity-75" Bootstrap class if the whole day has passed
         daySection.className = isMutedDay ? 'day-section mb-4 opacity-75' : 'day-section mb-4';
 
-        // Header style changes based on whether it is past or upcoming
         const headerClass = isMutedDay ? 'text-secondary fs-5 border-bottom pb-1' : 'text-primary border-bottom pb-2';
         daySection.innerHTML = `<h3 class="day-header ${headerClass}">${formattedDate}</h3>`;
 
-        // Render individual cards inside this day
+        // 💡 Performance Fix: Accumulate all game strings first!
+        let gamesHtmlBuffer = '';
+
         games.forEach(game => {
-            const awayLogo = teamLookup[game.awayTeam]?.logo || '';
-            const homeLogo = teamLookup[game.homeTeam]?.logo || '';
+            const awayLogo = teamLookup[game.awayTeam]?.logo || '🏀'; // Fallback for TBD games
+            const homeLogo = teamLookup[game.homeTeam]?.logo || '🏀';
             const awayRecord = teamLookup[game.awayTeam]?.record || '0-0';
             const homeRecord = teamLookup[game.homeTeam]?.record || '0-0';
 
-            // Match individual game status
             const gameDateTime = new Date(`${game.date} ${game.time}`);
             const isPastGame = gameDateTime < new Date();
 
-            daySection.innerHTML += createGameCardHtml(game, isPastGame, awayLogo, homeLogo, awayRecord, homeRecord);
+            // Accumulate strings smoothly in memory instead of touching innerHTML repeatedly
+            gamesHtmlBuffer += createGameCardHtml(game, isPastGame, awayLogo, homeLogo, awayRecord, homeRecord);
         });
 
+        // 💡 Push it to the DOM exactly ONCE per day section
+        daySection.innerHTML += gamesHtmlBuffer;
         SCHEDULE_CONTAINER.appendChild(daySection);
     }
 
@@ -106,7 +107,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
     const type = game.type;
     const winner = game.winner;
 
-    
+
     const gameCard = document.createElement('div');
     const cardClass = isPast ? 'game-card past' : 'game-card';
 
@@ -134,12 +135,12 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
     return `
         <div class="${cardClass} my-2">
             <div class="game-card-inner-wrapper row align-items-center game-${type}">
-             ${playoffs  ? `<span class="playoffs badge text-bg-light">Playoffs!</span>` : ''}
+             ${playoffs ? `<span class="playoffs badge text-bg-light">Playoffs!</span>` : ''}
                 <div class="team visitor col-md-4">
                     <span class="team-name"> <span class="team-logo">${awayLogo}</span> ${awayName} <span class="team-logo">${awayLogo}</span></span> 
                     ${awayWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}
                       <small class="text-muted">(${awayRecord})</small>
-                      ${hasScores  ? `<span class="score">${game.awayScore}</span>` : ''}
+                      ${hasScores ? `<span class="score">${game.awayScore}</span>` : ''}
                 </div>
                 <div class="vs-container col-md-2 text-center">
                     <div class="vs">@</div>
@@ -149,7 +150,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
                     <span class="team-name"> <span class="team-logo">${homeLogo}</span> ${homeName} <span class="team-logo">${homeLogo}</span></span>
                     ${homeWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}  
                     <small class="text-muted">(${homeRecord})</small>
-                      ${hasScores  ? `<span class="score">${game.homeScore}</span>` : ''}
+                      ${hasScores ? `<span class="score">${game.homeScore}</span>` : ''}
                 </div>
                 <div class="game-info col-md-2">${time}</div>
             </div>
@@ -167,7 +168,7 @@ function displayStandings() {
         const wins = parseInt(team.wonGames) || 0;
         const losses = parseInt(team.lostGames) || 0;
         const totalGames = wins + losses;
-        
+
         // Calculate win percentage (handle division by zero if league hasn't started)
         const winPercentage = totalGames > 0 ? (wins / totalGames) : 0;
 
@@ -212,3 +213,140 @@ function displayStandings() {
 displaySchedule();
 displayStandings();
 
+const statsEngine = {};
+teamsData.forEach(team => {
+    statsEngine[team.name] = {
+        name: team.name,
+        displayName: `${team.logo} ${team.name}`,
+        wins: 0,
+        losses: 0,
+        ptsScored: 0,
+        ptsAllowed: 0,
+        differential: 0
+    };
+});
+
+data.forEach(game => {
+    if (game.type === "regular") {
+        // Calculate Wins & Losses
+        if (game.winner) {
+            statsEngine[game.winner].wins++;
+            const loser = game.winner === game.homeTeam ? game.awayTeam : game.homeTeam;
+            if (statsEngine[loser]) statsEngine[loser].losses++;
+        }
+        // Calculate Points Metrics
+        if (game.homeScore !== undefined && game.awayScore !== undefined) {
+            if (statsEngine[game.homeTeam]) {
+                statsEngine[game.homeTeam].ptsScored += game.homeScore;
+                statsEngine[game.homeTeam].ptsAllowed += game.awayScore;
+            }
+            if (statsEngine[game.awayTeam]) {
+                statsEngine[game.awayTeam].ptsScored += game.awayScore;
+                statsEngine[game.awayTeam].ptsAllowed += game.homeScore;
+            }
+        }
+    }
+});
+
+// Post-process calculations & sort by win hierarchy
+const processedTeams = Object.values(statsEngine).map(team => {
+    team.differential = team.ptsScored - team.ptsAllowed;
+    return team;
+}).sort((a, b) => b.wins - a.wins || a.losses - b.losses);
+
+// Extract Arrays for Chart.js
+const labels = processedTeams.map(t => t.displayName);
+const winsData = processedTeams.map(t => t.wins);
+const lossesData = processedTeams.map(t => t.losses);
+const scoredData = processedTeams.map(t => t.ptsScored);
+const allowedData = processedTeams.map(t => t.ptsAllowed);
+const diffData = processedTeams.map(t => t.differential);
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Put ALL your Chart.js instantiation logic inside here:
+
+    Chart.defaults.responsive = true;
+    Chart.defaults.maintainAspectRatio = false;
+    Chart.defaults.devicePixelRatio = window.devicePixelRatio || 1;
+
+    // Chart 1: Standings
+    new Chart(document.getElementById('standingsChart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                { label: 'Wins', data: winsData, backgroundColor: '#2ca02c' },
+                { label: 'Losses', data: lossesData, backgroundColor: '#d62728' }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            resizeDelay: 50, // 💡 Debounces the window resizer so it won't trigger infinite loops
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Chart 2: Points Comparison
+    new Chart(document.getElementById('pointsChart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                { label: 'Points Scored', data: scoredData, backgroundColor: '#1f77b4' },
+                { label: 'Points Allowed', data: allowedData, backgroundColor: '#ff7f0e' }
+            ]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+    });
+
+    // Chart 3: Point Differential
+    // Chart 3: Point Differential (Enhanced for Zero Values)
+    new Chart(document.getElementById('differentialChart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Net Differential',
+                data: diffData,
+                // 💡 Force a solid border color even if height is 0
+                backgroundColor: diffData.map(v => {
+                    if (v === 0) return 'rgba(108, 117, 125, 0.2)'; // Muted gray for 0
+                    return v > 0 ? 'rgba(31, 119, 180, 0.7)' : 'rgba(227, 119, 194, 0.7)';
+                }),
+                borderColor: diffData.map(v => {
+                    if (v === 0) return '#6c757d'; // Solid gray border line for 0
+                    return v > 0 ? '#1f77b4' : '#e377c2';
+                }),
+                borderWidth: 2, // Thicken the border slightly so the 0 line stands out
+                minBarLength: 6 // 💡 The Secret Sauce: Forces a 6px mini-bar to render if data is 0!
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            resizeDelay: 100,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    // Add padding so data labels at the top aren't cut off
+                    grace: '10%'
+                }
+            },
+            plugins: {
+                // Adds clear layout formatting to the popup text box when hovering
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            let val = context.raw;
+                            if (val === 0) return ' Net Differential: Even (0)';
+                            return val > 0 ? ` Net Differential: +${val}` : ` Net Differential: ${val}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+});

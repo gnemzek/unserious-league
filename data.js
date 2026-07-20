@@ -147,25 +147,30 @@ const teamsData = [
     {
         name: "Hell's Ankles",
         logo: "🔥",
-        wonGames: 3,
-        lostGames: 2
+        wonGames: 2,
+        lostGames: 3,
+        roster: ["Emma (Captain)", "Angely", "Hannah G", "Richard", "Joey", "Joey N", "Lane", "Maddie", "Madeline"],
     },
     {
         name: "ChaHOOPas",
         logo: "🌮",
         wonGames: 5,
-        lostGames: 0
+        lostGames: 0,
+        roster: ["Ea (Captain)", "Anita", "Rosie", "Aayush", "Lydia", "Chris", "Vincent", "Brad", "Lara"],
     },
     {
         name: "Pop Stars",
         logo: "⭐",
         wonGames: 0,
-        lostGames: 5
+        lostGames: 5,
+        roster: ["Ava (Captain)", "Noah", "Caroline", "Lillian", "Matt", "Hannah L", "Mara", "Anthony"],
     },
+
     {
         name: "Swamp Rats",
         logo: "🐀",
         wonGames: 3,
-        lostGames: 2
+        lostGames: 2,
+        roster: ["Pauline (Captain)", "Kelsey", "Karthic", "Grant", "Hannah S", "Ames", "Dot", "Andrew", "Torin"],
     }
 ]
