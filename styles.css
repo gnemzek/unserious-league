@@ -110,7 +110,7 @@ img.logo.img-fluid {
 
 .game-card-inner-wrapper:hover {
     transform: translateY(-3px);
-    border-color: rgba(255, 92, 0, 0.3);
+    border-color: rgba(93, 195, 236, 0.3);
     box-shadow: 0 8px 24px rgba(255, 92, 0, 0.08);
 }
 
@@ -178,6 +178,13 @@ table {
     color: black;
 }
 
+.modal-body .card {
+    background-image: url(logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
 .agreement-content {
     text-align: center;
 }
@@ -206,4 +213,9 @@ table {
     top: 0;
     width: 100% !important;
     height: 100% !important;
+}
+
+.team-modal-btn {
+    background: transparent;
+    border: none;
 }

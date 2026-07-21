@@ -1,5 +1,6 @@
 const SCHEDULE_CONTAINER = document.getElementById('schedule-container');
 const STANDINGS_BODY = document.getElementById('standings-tbody');
+const MODAL_CONTAINER = document.getElementById('modals-container');
 
 function displaySchedule() {
     if (!SCHEDULE_CONTAINER) return;
@@ -12,8 +13,38 @@ function displaySchedule() {
     teamsData.forEach(team => {
         teamLookup[team.name] = {
             logo: team.logo,
-            record: `${team.wonGames}-${team.lostGames}`
+            record: `${team.wonGames}-${team.lostGames}`,
+            roster: team.roster,
+            cleanName: team.name.replace(/[^a-zA-Z0-9]/g, '') // For modal IDs
         };
+
+        let modalHtml = `
+            <div class="modal fade" id="${teamLookup[team.name].cleanName}-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-theme="dark">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">${team.name}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                         <div class="card-body">
+                            <p><strong>Record:</strong> ${team.wonGames}-${team.lostGames}</p>
+                            <p><strong>Roster:</strong></p>
+                            <ul>
+                                ${team.roster.map(player => `<li>${player}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+            </div>
+        `
+        MODAL_CONTAINER.innerHTML += modalHtml;
     });
 
     const groupedGames = {};
@@ -101,7 +132,9 @@ function displaySchedule() {
 
 function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRecord) {
     const homeName = game.homeTeam;
+    const cleanHomeName = homeName.replace(/[^a-zA-Z0-9]/g, ''); // For modal IDs
     const awayName = game.awayTeam;
+    const cleanAwayName = awayName.replace(/[^a-zA-Z0-9]/g, ''); // For modal IDs
     const date = game.date;
     const time = game.time;
     const type = game.type;
@@ -137,7 +170,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
             <div class="game-card-inner-wrapper row align-items-center game-${type}">
              ${playoffs ? `<span class="playoffs badge text-bg-light">Playoffs!</span>` : ''}
                 <div class="team visitor col-md-4">
-                    <span class="team-name"> <span class="team-logo">${awayLogo}</span> ${awayName} <span class="team-logo">${awayLogo}</span></span> 
+                    <button type="button" class="team-modal-btn" data-bs-toggle="modal" data-bs-target="#${cleanAwayName}-modal"><span class="team-name"> <span class="team-logo">${awayLogo}</span> ${awayName} <span class="team-logo">${awayLogo}</span></span> </button>
                     ${awayWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}
                       <small class="text-muted">(${awayRecord})</small>
                       ${hasScores ? `<span class="score">${game.awayScore}</span>` : ''}
@@ -147,7 +180,7 @@ function createGameCardHtml(game, isPast, awayLogo, homeLogo, awayRecord, homeRe
                 </div>
                 <div class="team home col-md-4">
                 
-                    <span class="team-name"> <span class="team-logo">${homeLogo}</span> ${homeName} <span class="team-logo">${homeLogo}</span></span>
+                    <button type="button" class="team-modal-btn" data-bs-toggle="modal" data-bs-target="#${cleanHomeName}-modal"> <span class="team-name"> <span class="team-logo">${homeLogo}</span> ${homeName} <span class="team-logo">${homeLogo}</span></span> </button>
                     ${homeWin ? `<div class="winner-tag badge text-bg-light">Winner!</div>` : ''}  
                     <small class="text-muted">(${homeRecord})</small>
                       ${hasScores ? `<span class="score">${game.homeScore}</span>` : ''}
@@ -255,15 +288,22 @@ const processedTeams = Object.values(statsEngine).map(team => {
 }).sort((a, b) => b.wins - a.wins || a.losses - b.losses);
 
 // Extract Arrays for Chart.js
+// Arrays for Standings & Points charts (Sorted by Wins/Losses)
 const labels = processedTeams.map(t => t.displayName);
 const winsData = processedTeams.map(t => t.wins);
 const lossesData = processedTeams.map(t => t.losses);
 const scoredData = processedTeams.map(t => t.ptsScored);
 const allowedData = processedTeams.map(t => t.ptsAllowed);
-const diffData = processedTeams.map(t => t.differential);
+
+//Create a separate array sorted by Point Differential (Highest to Lowest)
+const diffSortedTeams = [...processedTeams].sort((a, b) => b.differential - a.differential);
+
+// Extract separate arrays specifically for Chart 3
+const diffLabels = diffSortedTeams.map(t => t.displayName);
+const diffData = diffSortedTeams.map(t => t.differential);
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Put ALL your Chart.js instantiation logic inside here:
+    // Put ALL Chart.js instantiation logic inside here:
 
     Chart.defaults.responsive = true;
     Chart.defaults.maintainAspectRatio = false;
@@ -275,8 +315,8 @@ document.addEventListener("DOMContentLoaded", () => {
         data: {
             labels: labels,
             datasets: [
-                { label: 'Wins', data: winsData, backgroundColor: '#2ca02c' },
-                { label: 'Losses', data: lossesData, backgroundColor: '#d62728' }
+                { label: 'Wins', data: winsData, backgroundColor: '#591a7e' },
+                { label: 'Losses', data: lossesData, backgroundColor: '#5dc3ec' }
             ]
         },
         options: {
@@ -303,11 +343,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Chart 3: Point Differential
-    // Chart 3: Point Differential (Enhanced for Zero Values)
     new Chart(document.getElementById('differentialChart'), {
         type: 'bar',
         data: {
-            labels: labels,
+            labels: diffLabels,
             datasets: [{
                 label: 'Net Differential',
                 data: diffData,
