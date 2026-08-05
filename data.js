@@ -119,7 +119,9 @@ const data = [
         homeTeam: "ChaHOOPas",
         awayTeam: "Swamp Rats",
         type: "playoffs",
-        winner: "",
+        winner: "ChaHOOPas",
+        homeScore: 43,
+        awayScore: 36
     },
     {
         date: "2026-07-30",
@@ -127,21 +129,23 @@ const data = [
         homeTeam: "Hell's Ankles",
         awayTeam: "Pop Stars",
         type: "playoffs",
-        winner: "",
+        winner: "Hell's Ankles",
+        homeScore: 44,
+        awayScore: 37
     },
        {
         date: "2026-08-06",
         time: "6:30 PM",
-        homeTeam: "TBD",
-        awayTeam: "TBD",
+        homeTeam: "Pop Stars",
+        awayTeam: "Swamp Rats",
         type: "playoffs",
         winner: "",
     },
     {
         date: "2026-08-06",
         time: "7:30 PM",
-        homeTeam: "TBD",
-        awayTeam: "TBD",
+        homeTeam: "ChaHOOPas",
+        awayTeam: "Hell's Ankles",
         type: "playoffs",
         winner: "",
     }
