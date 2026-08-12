@@ -173,15 +173,15 @@ const teamsData = [
     {
         name: "Pop Stars",
         logo: "⭐",
-        wonGames: 2,
-        lostGames: 6,
+        wonGames: 1,
+        lostGames: 7,
         roster: ["Ava (Captain)", "Noah", "Caroline", "Lillian", "Matt", "Hannah L", "Mara", "Anthony"],
     },
 
     {
         name: "Swamp Rats",
         logo: "🐀",
-        wonGames: 4,
+        wonGames: 3,
         lostGames: 4,
         roster: ["Pauline (Captain)", "Kelsey", "Karthic", "Grant", "Hannah S", "Ames", "Dot", "Andrew", "Torin"],
     }
