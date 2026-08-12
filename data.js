@@ -139,7 +139,9 @@ const data = [
         homeTeam: "Pop Stars",
         awayTeam: "Swamp Rats",
         type: "playoffs",
-        winner: "",
+        winner: "Swamp Rats",
+        homeScore: 29,
+        awayScore: 39,
     },
     {
         date: "2026-08-06",
@@ -147,7 +149,9 @@ const data = [
         homeTeam: "ChaHOOPas",
         awayTeam: "Hell's Ankles",
         type: "playoffs",
-        winner: "",
+        winner: "ChaHOOPas",
+        homeScore: 38,
+        awayScore: 36
     }
 ]
 
@@ -156,20 +160,20 @@ const teamsData = [
         name: "Hell's Ankles",
         logo: "🔥",
         wonGames: 4,
-        lostGames: 3,
+        lostGames: 4,
         roster: ["Emma (Captain)", "Angely", "Hannah G", "Richard", "Joey", "Joey N", "Lane", "Maddie", "Madeline"],
     },
     {
         name: "ChaHOOPas",
         logo: "🌮",
-        wonGames: 6,
+        wonGames: 7,
         lostGames: 1,
         roster: ["Ea (Captain)", "Anita", "Rosie", "Aayush", "Lydia", "Chris", "Vincent", "Brad", "Lara"],
     },
     {
         name: "Pop Stars",
         logo: "⭐",
-        wonGames: 1,
+        wonGames: 2,
         lostGames: 6,
         roster: ["Ava (Captain)", "Noah", "Caroline", "Lillian", "Matt", "Hannah L", "Mara", "Anthony"],
     },
@@ -177,7 +181,7 @@ const teamsData = [
     {
         name: "Swamp Rats",
         logo: "🐀",
-        wonGames: 3,
+        wonGames: 4,
         lostGames: 4,
         roster: ["Pauline (Captain)", "Kelsey", "Karthic", "Grant", "Hannah S", "Ames", "Dot", "Andrew", "Torin"],
     }
